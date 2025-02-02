@@ -4,7 +4,7 @@ class FinancialCalculator
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Welcome to the Financial Calculator!");
+        Console.WriteLine("Welcome to HKSYU Financial Calculator!");
 
         while (true)
         {
