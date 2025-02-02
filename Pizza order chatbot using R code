@@ -1,6 +1,6 @@
 # Function to display the menu and take orders
 order_pizza <- function() {
-  cat("Welcome to the Pizza Order System!\n")
+  cat("Welcome to the Rita Li's Pizza Order System!\n")
   
   # Pizza sizes
   sizes <- c("Small", "Medium", "Large")
