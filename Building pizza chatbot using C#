@@ -1,0 +1,84 @@
+using System;
+
+class PizzaChatbot
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Welcome to the Pizza Chatbot!");
+        Console.WriteLine("I'll help you order your pizza.");
+
+        string size = GetPizzaSize();
+        string type = GetPizzaType();
+        string toppings = GetToppings();
+
+        SummarizeOrder(size, type, toppings);
+    }
+
+    static string GetPizzaSize()
+    {
+        Console.WriteLine("\nWhat size pizza would you like?");
+        Console.WriteLine("1. Small");
+        Console.WriteLine("2. Medium");
+        Console.WriteLine("3. Large");
+
+        string size = Console.ReadLine();
+        switch (size)
+        {
+            case "1":
+                return "Small";
+            case "2":
+                return "Medium";
+            case "3":
+                return "Large";
+            default:
+                Console.WriteLine("Invalid choice, defaulting to Medium.");
+                return "Medium";
+        }
+    }
+
+    static string GetPizzaType()
+    {
+        Console.WriteLine("\nWhat type of pizza would you like?");
+        Console.WriteLine("1. Margherita");
+        Console.WriteLine("2. Pepperoni");
+        Console.WriteLine("3. Veggie");
+        Console.WriteLine("4. BBQ Chicken");
+
+        string type = Console.ReadLine();
+        switch (type)
+        {
+            case "1":
+                return "Margherita";
+            case "2":
+                return "Pepperoni";
+            case "3":
+                return "Veggie";
+            case "4":
+                return "BBQ Chicken";
+            default:
+                Console.WriteLine("Invalid choice, defaulting to Margherita.");
+                return "Margherita";
+        }
+    }
+
+    static string GetToppings()
+    {
+        Console.WriteLine("\nWould you like any additional toppings? (e.g., Olives, Jalapenos, Extra Cheese)");
+        Console.WriteLine("Type 'none' if you don't want any toppings.");
+
+        string toppings = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(toppings) || toppings.ToLower() == "none")
+        {
+            return "No additional toppings";
+        }
+        return toppings;
+    }
+
+    static void SummarizeOrder(string size, string type, string toppings)
+    {
+        Console.WriteLine("\nThank you for your order!");
+        Console.WriteLine($"You have ordered a {size} {type} pizza.");
+        Console.WriteLine($"Additional toppings: {toppings}");
+        Console.WriteLine("Your order will be ready shortly. Enjoy your pizza!");
+    }
+}
