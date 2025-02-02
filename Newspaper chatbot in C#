@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+
+class NewspaperChatbot
+{
+    static Dictionary<string, List<string>> newsArticles = new Dictionary<string, List<string>>
+    {
+        { "World News", new List<string>
+            {
+                "1. Global Climate Change: The Impact on Future Generations",
+                "2. Political Unrest in Eastern Europe",
+                "3. Breakthrough in Space Exploration"
+            }
+        },
+        { "Sports", new List<string>
+            {
+                "1. The Rise of Young Athletes in the Olympics",
+                "2. Major League Baseball: A Season Recap",
+                "3. Football World Cup Highlights"
+            }
+        },
+        { "Technology", new List<string>
+            {
+                "1. New Innovations in Artificial Intelligence",
+                "2. The Future of Quantum Computing",
+                "3. Cybersecurity: Protecting Your Data"
+            }
+        },
+        { "Entertainment", new List<string>
+            {
+                "1. Top Movies to Watch This Year",
+                "2. The Evolution of Music Streaming Services",
+                "3. Celebrity News: Who's Making Headlines?"
+            }
+        }
+    };
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Welcome to the Newspaper Chatbot!");
+
+        string section = GetNewsSection();
+        DisplayArticles(section);
+    }
+
+    static string GetNewsSection()
+    {
+        Console.WriteLine("\nPlease choose a news section:");
+        Console.WriteLine("1. World News");
+        Console.WriteLine("2. Sports");
+        Console.WriteLine("3. Technology");
+        Console.WriteLine("4. Entertainment");
+
+        string choice = Console.ReadLine();
+        switch (choice)
+        {
+            case "1":
+                return "World News";
+            case "2":
+                return "Sports";
+            case "3":
+                return "Technology";
+            case "4":
+                return "Entertainment";
+            default:
+                Console.WriteLine("Invalid choice, defaulting to World News.");
+                return "World News";
+        }
+    }
+
+    static void DisplayArticles(string section)
+    {
+        Console.WriteLine($"\nHere are the latest articles in {section}:");
+
+        if (newsArticles.TryGetValue(section, out List<string> articles))
+        {
+            foreach (string article in articles)
+            {
+                Console.WriteLine(article);
+            }
+
+            Console.WriteLine("\nWould you like to read more about any article? (Enter the article number or 'no' to exit)");
+            string readChoice = Console.ReadLine();
+            if (readChoice.ToLower() != "no")
+            {
+                ReadMoreArticle(readChoice, section);
+            }
+        }
+        else
+        {
+            Console.WriteLine("No articles available in this section.");
+        }
+    }
+
+    static void ReadMoreArticle(string articleNumber, string section)
+    {
+        if (int.TryParse(articleNumber, out int number) && number > 0 && number <= newsArticles[section].Count)
+        {
+            Console.WriteLine($"\nYou chose to read: {newsArticles[section][number - 1]}");
+            // Here you can provide more details about the article
+            Console.WriteLine("Details: This is a placeholder for the full article content.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid article number. Please try again.");
+        }
+    }
+}
