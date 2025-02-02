@@ -1,0 +1,49 @@
+# Function to display the menu and take orders
+order_pizza <- function() {
+  cat("Welcome to the Pizza Order System!\n")
+  
+  # Pizza sizes
+  sizes <- c("Small", "Medium", "Large")
+  types <- c("Margherita", "Pepperoni", "Vegetarian", "BBQ Chicken")
+  toppings <- c("Olives", "Mushrooms", "Onions", "Peppers", "Extra Cheese")
+  
+  # Get size choice
+  cat("\nChoose a pizza size:\n")
+  for (i in seq_along(sizes)) {
+    cat(i, "-", sizes[i], "\n")
+  }
+  size_choice <- as.integer(readline(prompt = "Enter the number corresponding to your choice: "))
+  
+  # Get type choice
+  cat("\nChoose a pizza type:\n")
+  for (i in seq_along(types)) {
+    cat(i, "-", types[i], "\n")
+  }
+  type_choice <- as.integer(readline(prompt = "Enter the number corresponding to your choice: "))
+  
+  # Get toppings choice
+  cat("\nChoose your toppings (type the numbers separated by commas):\n")
+  for (i in seq_along(toppings)) {
+    cat(i, "-", toppings[i], "\n")
+  }
+  topping_choices <- strsplit(readline(prompt = "Enter your choices: "), ",")[[1]]
+  topping_choices <- as.integer(trimws(topping_choices))
+  
+  # Build order summary
+  order_summary <- list(
+    Size = sizes[size_choice],
+    Type = types[type_choice],
+    Toppings = toppings[topping_choices]
+  )
+  
+  # Print order summary
+  cat("\nYour Order Summary:\n")
+  cat("Pizza Size:", order_summary$Size, "\n")
+  cat("Pizza Type:", order_summary$Type, "\n")
+  cat("Toppings:", paste(order_summary$Toppings, collapse = ", "), "\n")
+  
+  cat("\nThank you for your order!\n")
+}
+
+# Call the function to start the order process
+order_pizza()
