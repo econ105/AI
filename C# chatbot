@@ -1,0 +1,74 @@
+using System;
+
+class FinancialCalculator
+{
+    static void Main(string[] args)
+    {
+        Console.WriteLine("Welcome to the Financial Calculator!");
+
+        while (true)
+        {
+            Console.WriteLine("\nChoose an option:");
+            Console.WriteLine("1. Calculate Monthly Loan Payment");
+            Console.WriteLine("2. Calculate Future Investment Value");
+            Console.WriteLine("3. Exit");
+
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    CalculateMonthlyLoanPayment();
+                    break;
+                case "2":
+                    CalculateFutureInvestmentValue();
+                    break;
+                case "3":
+                    Console.WriteLine("Exiting the calculator. Goodbye!");
+                    return;
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
+            }
+        }
+    }
+
+    static void CalculateMonthlyLoanPayment()
+    {
+        Console.Write("Enter loan amount (principal): ");
+        double principal = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter annual interest rate (in %): ");
+        double annualInterestRate = Convert.ToDouble(Console.ReadLine()) / 100;
+
+        Console.Write("Enter loan term (in years): ");
+        int years = Convert.ToInt32(Console.ReadLine());
+
+        double monthlyInterestRate = annualInterestRate / 12;
+        int totalPayments = years * 12;
+
+        double monthlyPayment = (principal * monthlyInterestRate) /
+                                (1 - Math.Pow(1 + monthlyInterestRate, -totalPayments));
+
+        Console.WriteLine($"Monthly Payment: {monthlyPayment:C}");
+    }
+
+    static void CalculateFutureInvestmentValue()
+    {
+        Console.Write("Enter initial investment amount: ");
+        double principal = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Enter annual interest rate (in %): ");
+        double annualInterestRate = Convert.ToDouble(Console.ReadLine()) / 100;
+
+        Console.Write("Enter number of years: ");
+        int years = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Enter number of times interest applied per year: ");
+        int compoundFrequency = Convert.ToInt32(Console.ReadLine());
+
+        double futureValue = principal * Math.Pow(1 + (annualInterestRate / compoundFrequency), compoundFrequency * years);
+
+        Console.WriteLine($"Future Investment Value: {futureValue:C}");
+    }
+}
