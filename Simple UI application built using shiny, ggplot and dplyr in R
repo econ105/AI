@@ -1,0 +1,87 @@
+# Install and load required packages
+if (!require("shiny")) install.packages("shiny")
+if (!require("ggplot2")) install.packages("ggplot2")
+if (!require("dplyr")) install.packages("dplyr")
+
+library(shiny)
+library(ggplot2)
+library(dplyr)
+
+# Define UI
+ui <- fluidPage(
+  titlePanel("Interactive Iris Data Visualization"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      selectInput(inputId = "x_axis",
+                  label = "Select X-axis:",
+                  choices = c("Sepal Length", "Sepal Width", "Petal Length", 
+                              "Petal Width"),
+                  selected = "Sepal Length"),
+      
+      selectInput(inputId = "y_axis",
+                  label = "Select Y-axis:",
+                  choices = c("Sepal Length", "Sepal Width", "Petal Length", 
+                              "Petal Width"),
+                  selected = "Sepal Width"),
+      
+      selectInput(inputId = "plot_type",
+                  label = "Select Plot Type:",
+                  choices = c("Scatter Plot", "Line Plot", "Bar Plot"),
+                  selected = "Scatter Plot"),
+      
+      downloadButton(outputId = "download_plot", label = "Download Plot")
+    ),
+    
+    mainPanel(
+      plotOutput(outputId = "iris_plot")
+    )
+  )
+)
+
+# Define server logic
+server <- function(input, output) {
+  output$iris_plot <- renderPlot({
+    x_var <- switch(input$x_axis,
+                    "Sepal Length" = "Sepal.Length",
+                    "Sepal Width" = "Sepal.Width",
+                    "Petal Length" = "Petal.Length",
+                    "Petal Width" = "Petal.Width")
+    
+    y_var <- switch(input$y_axis,
+                    "Sepal Length" = "Sepal.Length",
+                    "Sepal Width" = "Sepal.Width",
+                    "Petal Length" = "Petal.Length",
+                    "Petal Width" = "Petal.Width")
+    
+    plot_data <- iris
+    
+    if (input$plot_type == "Scatter Plot") {
+      ggplot(plot_data, aes_string(x = x_var, y = y_var)) +
+        geom_point() +
+        labs(x = input$x_axis, y = input$y_axis, title = "Scatter Plot of Iris Dataset")
+    } else if (input$plot_type == "Line Plot") {
+      ggplot(plot_data, aes_string(x = x_var, y = y_var, group = "Species", 
+                                   color = "Species")) +
+        geom_line() +
+        labs(x = input$x_axis, y = input$y_axis, title = "Line Plot of Iris Dataset")
+    } else if (input$plot_type == "Bar Plot") {
+      ggplot(plot_data, aes_string(x = "Species", y = y_var, fill = "Species")) +
+        geom_bar(stat = "identity") +
+        labs(x = "Species", y = input$y_axis, title = "Bar Plot of Iris Dataset")
+    }
+  })
+  
+  output$download_plot <- downloadHandler(
+    filename = function() {
+      paste("iris_plot_", Sys.Date(), ".png", sep = "")
+    },
+    
+    content = function(file) {
+      ggsave(file, plot = output$iris_plot(), device = "png")
+    }
+  )
+}
+
+# Run the application
+shinyApp(ui = ui, server = server)
