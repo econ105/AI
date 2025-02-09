@@ -1,0 +1,78 @@
+using System;
+using System.Collections.Generic;
+
+class FoodOrderingSystem
+{
+    static void Main(string[] args)
+    {
+        // Define the menu with items and prices
+        Dictionary<string, double> menu = new Dictionary<string, double>
+        {
+            { "Burger", 5.99 },
+            { "Pizza", 8.99 },
+            { "Pasta", 7.49 },
+            { "Salad", 4.99 },
+            { "Soda", 1.99 },
+            { "Fries", 2.49 }
+        };
+
+        // Initialize the order dictionary
+        Dictionary<string, int> order = new Dictionary<string, int>();
+
+        Console.WriteLine("Welcome to the Food Ordering System!");
+        Console.WriteLine("Menu:");
+        foreach (var item in menu)
+        {
+            Console.WriteLine($"{item.Key}: ${item.Value:F2}");
+        }
+
+        while (true)
+        {
+            Console.Write("\nEnter the food item you'd like to order (or type 'done' to finish): ");
+            string foodItem = Console.ReadLine();
+
+            if (foodItem.ToLower() == "done")
+            {
+                break;
+            }
+
+            if (!menu.ContainsKey(foodItem))
+            {
+                Console.WriteLine("Invalid item! Please choose from the menu.");
+                continue;
+            }
+
+            Console.Write($"Enter the quantity for {foodItem}: ");
+            if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity <= 0)
+            {
+                Console.WriteLine("Invalid quantity! Please enter a positive number.");
+                continue;
+            }
+
+            // Add the item to the order or update the quantity if it already exists
+            if (order.ContainsKey(foodItem))
+            {
+                order[foodItem] += quantity;
+            }
+            else
+            {
+                order[foodItem] = quantity;
+            }
+
+            Console.WriteLine($"{quantity} x {foodItem} added to your order.");
+        }
+
+        // Calculate the total cost
+        double totalCost = 0;
+        Console.WriteLine("\nYour Order:");
+        foreach (var item in order)
+        {
+            double itemCost = menu[item.Key] * item.Value;
+            Console.WriteLine($"{item.Key} x {item.Value}: ${itemCost:F2}");
+            totalCost += itemCost;
+        }
+
+        Console.WriteLine($"\nTotal Cost: ${totalCost:F2}");
+        Console.WriteLine("Thank you for your order! Enjoy your meal!");
+    }
+}
