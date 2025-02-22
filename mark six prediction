@@ -1,0 +1,26 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Random random = new Random();
+        int[] numbers = new int[6];
+        bool[] selected = new bool[49]; // Assuming numbers range from 1 to 49
+
+        for (int i = 0; i < 6; i++)
+        {
+            int number;
+            do
+            {
+                number = random.Next(1, 50); // Generate a number between 1 and 49
+            } while (selected[number - 1]); // Ensure no duplicates
+
+            selected[number - 1] = true; // Mark this number as selected
+            numbers[i] = number; // Store the selected number
+        }
+
+        Array.Sort(numbers); // Sort the numbers for better readability
+        Console.WriteLine("Predicted Mark Six numbers: " + string.Join(", ", numbers));
+    }
+}
