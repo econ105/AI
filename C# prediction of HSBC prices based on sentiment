@@ -1,0 +1,64 @@
+using System;
+using System.Collections.Generic;
+
+namespace StockPricePrediction
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Historical prices for HSBC (example data)
+            List<double> historicalPrices = new List<double> { 42.3, 43.0, 44.5, 43.5, 45.0, 46.0, 45.8, 46.5, 47.0, 48.0 };
+
+            // Fetch news sentiment score (for demonstration, using a static value)
+            double newsSentimentScore = GetNewsSentimentScore("HSBC");
+
+            // Predict the next few prices
+            int daysToPredict = 5;
+            List<double> predictedPrices = PredictFuturePrices(historicalPrices, daysToPredict, newsSentimentScore);
+
+            Console.WriteLine("Predicted Prices for the Next Few Days:");
+            foreach (var price in predictedPrices)
+            {
+                Console.WriteLine(price);
+            }
+        }
+
+        static List<double> PredictFuturePrices(List<double> historicalPrices, int days, double sentimentScore)
+        {
+            List<double> predictions = new List<double>();
+            double lastPrice = historicalPrices[historicalPrices.Count - 1];
+
+            // Calculate average change in price
+            double averageChange = CalculateAverageChange(historicalPrices);
+
+            // Adjust prediction based on sentiment score (simple adjustment)
+            for (int i = 0; i < days; i++)
+            {
+                double adjustmentFactor = 1 + (sentimentScore / 100); // Scale sentiment score
+                lastPrice += averageChange * adjustmentFactor;
+                predictions.Add(lastPrice);
+            }
+
+            return predictions;
+        }
+
+        static double CalculateAverageChange(List<double> prices)
+        {
+            double totalChange = 0.0;
+            for (int i = 1; i < prices.Count; i++)
+            {
+                totalChange += prices[i] - prices[i - 1];
+            }
+            return totalChange / (prices.Count - 1);
+        }
+
+        static double GetNewsSentimentScore(string ticker)
+        {
+            // Placeholder for fetching sentiment score from Yahoo Finance or another source
+            // For demonstration purposes, returning a static sentiment score
+            // In practice, implement sentiment analysis logic here.
+            return 5.0; // Example: Positive sentiment
+        }
+    }
+}
