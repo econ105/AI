@@ -1,0 +1,14 @@
+library(shiny)
+library(bslib)
+library(reactable)
+library(palmerpenguins)
+
+ui <- page_fluid(
+  reactableOutput("table") 
+)
+
+server <- function(input, output) {
+  output$table <- renderReactable({reactable(penguins)}) 
+}
+
+shinyApp(ui = ui, server = server)
