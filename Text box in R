@@ -1,0 +1,17 @@
+library(shiny)
+library(bslib)
+
+ui <- page_fluid(
+  textInput( 
+    "text", 
+    "Text input", 
+    placeholder = "Enter text..."
+  ), 
+  verbatimTextOutput("value")
+)
+
+server <- function(input, output) {
+  output$value <- renderText({input$text})
+}
+
+shinyApp(ui = ui, server = server)
