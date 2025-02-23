@@ -1,0 +1,70 @@
+library(shiny)
+library(ggplot2)
+
+# Sample dataset
+data <- data.frame(
+  x = seq(1, 100),
+  y = rnorm(100)
+)
+
+# Define UI
+ui <- fluidPage(
+  titlePanel("Shiny Elements Example"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("numInput", "Enter a number:", value = 0),
+      sliderInput("numSlider", "Select a value:", min = 0, max = 100, value = 50),
+      actionButton("actionBtn", "Click Me"),
+      checkboxInput("singleCheckbox", "Check me"),
+      checkboxGroupInput("multiCheckbox", "Select options:", 
+                         choices = c("Option 1", "Option 2", "Option 3")),
+      radioButtons("radioBtn", "Choose one:", 
+                   choices = c("Option A", "Option B", "Option C"), selected = NULL),
+      selectInput("dropdownMenu", "Choose one:", 
+                  choices = c("Option 1", "Option 2", "Option 3"), selected = NULL),
+      textInput("txtInput", "Enter text:")
+    ),
+    mainPanel(
+      textOutput("doubleOutput"),
+      plotOutput("plot"),
+      textOutput("messageOutput"),
+      dataTableOutput("table")
+    )
+  )
+)
+
+# Define Server logic
+server <- function(input, output, session) {
+  
+  # Reactive expression to double the numeric input
+  output$doubleOutput <- renderText({
+    input_val <- input$numInput
+    computed_val <- input_val * 2
+    paste("Double of", input_val, "is", computed_val)
+  })
+  
+  # Reactive plot output based on the slider value
+  output$plot <- renderPlot({
+    input_val <- input$numSlider
+    ggplot(data[1:input_val, ], aes(x = x, y = y)) +
+      geom_point() +
+      labs(title = paste("Scatter plot of first", input_val, "data points"))
+  })
+  
+  # Observer for button click event
+  observeEvent(input$actionBtn, {
+    output$messageOutput <- renderText({
+      req(input$txtInput)  # Ensures input is not NULL
+      paste("You entered:", input$txtInput)
+    })
+  })
+  
+  # Render a sample data table
+  output$table <- renderDataTable({
+    data
+  })
+}
+
+# Run the application
+shinyApp(ui = ui, server = server)
+
