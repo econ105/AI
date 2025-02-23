@@ -1,0 +1,17 @@
+library(shiny)
+library(bslib)
+library(leaflet)
+
+ui <- page_fluid(
+  leafletOutput("map") 
+)
+
+server <- function(input, output) {
+  output$map <- renderLeaflet({ 
+    leaflet() |> 
+      addTiles() |> 
+      setView(0.34580993652344, 50.6252978589571, zoom = 3) 
+  }) 
+}
+
+shinyApp(ui = ui, server = server)
