@@ -1,0 +1,107 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace StudentGPAPredictor
+{
+    // Class to hold student data
+    public class StudentData
+    {
+        public double IQ { get; set; }
+        public double EQ { get; set; }
+        public double StudyHours { get; set; }
+        public double GPA { get; set; }
+    }
+
+    // Prediction model class
+    public class GPAPredictor
+    {
+        // Coefficients for each factor (these would typically be determined through training)
+        private double iqWeight = 0.03;    // How much IQ affects GPA
+        private double eqWeight = 0.02;    // How much EQ affects GPA
+        private double hoursWeight = 0.15; // How much study hours affect GPA
+        private double baseGPA = 1.0;      // Baseline GPA
+
+        // Training data
+        private List<StudentData> trainingData;
+
+        public GPAPredictor()
+        {
+            trainingData = new List<StudentData>();
+        }
+
+        // Add training data
+        public void AddTrainingData(double iq, double eq, double studyHours, double gpa)
+        {
+            trainingData.Add(new StudentData 
+            { 
+                IQ = iq, 
+                EQ = eq, 
+                StudyHours = studyHours, 
+                GPA = gpa 
+            });
+        }
+
+        // Simple method to adjust weights based on training data
+        public void TrainModel()
+        {
+            if (trainingData.Count == 0) return;
+
+            // Basic weight adjustment using averages (in real scenarios, use proper regression)
+            double avgIQ = trainingData.Average(x => x.IQ);
+            double avgEQ = trainingData.Average(x => x.EQ);
+            double avgHours = trainingData.Average(x => x.StudyHours);
+            double avgGPA = trainingData.Average(x => x.GPA);
+
+            // Adjust weights based on correlation (simplified)
+            iqWeight = (avgGPA - baseGPA) / (avgIQ != 0 ? avgIQ : 1);
+            eqWeight = (avgGPA - baseGPA) / (avgEQ != 0 ? avgEQ : 1);
+            hoursWeight = (avgGPA - baseGPA) / (avgHours != 0 ? avgHours : 1);
+        }
+
+        // Predict GPA based on input values
+        public double PredictGPA(double iq, double eq, double studyHours)
+        {
+            // Basic linear prediction
+            double predictedGPA = baseGPA + 
+                                (iq * iqWeight) + 
+                                (eq * eqWeight) + 
+                                (studyHours * hoursWeight);
+
+            // Clamp GPA between 0.0 and 4.0
+            return Math.Max(0.0, Math.Min(4.0, predictedGPA));
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Create predictor instance
+            GPAPredictor predictor = new GPAPredictor();
+
+            // Add sample training data (IQ, EQ, StudyHours, GPA)
+            predictor.AddTrainingData(120, 110, 20, 3.8);
+            predictor.AddTrainingData(100, 95, 15, 3.2);
+            predictor.AddTrainingData(90, 85, 10, 2.5);
+            predictor.AddTrainingData(130, 120, 25, 3.9);
+
+            // Train the model with the data
+            predictor.TrainModel();
+
+            // Test prediction
+            Console.WriteLine("Enter student details for GPA prediction:");
+            Console.Write("IQ: ");
+            double iq = double.Parse(Console.ReadLine());
+            
+            Console.Write("EQ: ");
+            double eq = double.Parse(Console.ReadLine());
+            
+            Console.Write("Weekly Study Hours: ");
+            double hours = double.Parse(Console.ReadLine());
+
+            double predictedGPA = predictor.PredictGPA(iq, eq, hours);
+            Console.WriteLine($"\nPredicted GPA: {predictedGPA:F2}");
+        }
+    }
+}
