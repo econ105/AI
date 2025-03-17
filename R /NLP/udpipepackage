@@ -1,0 +1,16 @@
+# Install and load the 'udpipe' library
+install.packages("udpipe")
+library(udpipe)
+
+# Download and load the English model
+ud_model <- udpipe_download_model(language = "english", model_dir = getwd())
+ud_model <- udpipe_load_model(ud_model$file_model)
+
+# Sample sentence
+sentence <- "Professor Rita Li jumps over the lazy dog."
+
+# Tokenize and perform POS tagging
+udpipe_annotations <- udpipe_annotate(ud_model, x = sentence)
+udpipe_pos <- as.data.frame(udpipe_annotations)
+print("POS tags:")
+print(udpipe_pos[, c('token_id', 'token', 'lemma','upos','xpos','head_token_id','dep_rel')])
