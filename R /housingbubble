@@ -1,0 +1,36 @@
+# Load necessary libraries
+library(tidyverse)
+library(ggplot2)
+
+# Example: Simulate housing price and income data (replace with real data)
+set.seed(123)
+dates <- seq(as.Date("2000-01-01"), as.Date("2023-01-01"), by = "month")
+price_index <- cumprod(1 + rnorm(length(dates), 0.002, 0.02)) * 100
+income_index <- cumprod(1 + rnorm(length(dates), 0.001, 0.01)) * 100
+housing_data <- data.frame(Date = dates, Price_Index = price_index, Income_Index = income_index)
+
+# Calculate Price-to-Income Ratio
+housing_data <- housing_data %>%
+  mutate(Price_to_Income_Ratio = Price_Index / Income_Index)
+
+# Calculate moving average and standard deviation
+housing_data <- housing_data %>%
+  mutate(Moving_Avg = zoo::rollmean(Price_to_Income_Ratio, k = 12, fill = NA),
+         Std_Dev = zoo::rollapply(Price_to_Income_Ratio, width = 12, FUN = sd, fill = NA))
+
+# Flag potential bubbles (2 standard deviations above moving average)
+housing_data <- housing_data %>%
+  mutate(Bubble_Indicator = ifelse(Price_to_Income_Ratio > (Moving_Avg + 2 * Std_Dev), "Potential Bubble", "Normal"))
+
+# Plot Price-to-Income Ratio with Bubble Indicators
+ggplot(housing_data, aes(x = Date, y = Price_to_Income_Ratio)) +
+  geom_line(color = "blue", size = 1) +
+  geom_line(aes(y = Moving_Avg), color = "red", linetype = "dashed", size = 1) +
+  geom_ribbon(aes(ymin = Moving_Avg - 2 * Std_Dev, ymax = Moving_Avg + 2 * Std_Dev), alpha = 0.2) +
+  geom_point(data = filter(housing_data, Bubble_Indicator == "Potential Bubble"), 
+             aes(color = Bubble_Indicator), size = 3) +
+  labs(title = "Housing Bubble Detection: Price-to-Income Ratio",
+       x = "Date", y = "Price-to-Income Ratio",
+       color = "Bubble Indicator") +
+  theme_minimal() +
+  scale_color_manual(values = c("Potential Bubble" = "red", "Normal" = "blue"))
