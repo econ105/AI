@@ -4,7 +4,7 @@ library(DT)
 
 # Define UI
 ui <- fluidPage(
-  titlePanel("mtcars Data Exploration"),
+  titlePanel("Prof Rita Li's mtcars Data Exploration"),
   
   sidebarLayout(
     sidebarPanel(
