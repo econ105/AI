@@ -1,0 +1,42 @@
+# Install and load the necessary packages
+install.packages("tidytext")
+install.packages("dplyr")
+library(tidytext)
+library(dplyr)
+
+# Sample text data
+text_data <- data.frame(line = 1:3,
+                        text = c("I love programming in R using Rita's code!",
+                                 "I am feeling sad about insufficient time to do the term paper.",
+                                 "What a fantastic term paper that I have submitted!"))
+
+# Unnest tokens
+text_words <- text_data %>%
+  unnest_tokens(word, text)
+
+# Load the Bing lexicon for sentiment analysis
+bing <- get_sentiments("bing")
+
+# Join with the sentiment lexicon
+sentiment_analysis <- text_words %>%
+  inner_join(bing, by = "word")
+
+# Count sentiments
+sentiment_count <- sentiment_analysis %>%
+  count(line, sentiment)
+
+print(sentiment_count)
+
+# Install and load the syuzhet package
+install.packages("syuzhet")
+library(syuzhet)
+
+# Sample text
+text <- c("I love Rita's AI course!",
+          "I am so angry about R that I cannot run the results.",
+          "This is a wonderful AI emotion experience!")
+
+# Get emotion scores
+emotion_scores <- get_nrc_sentiment(text)
+
+print(emotion_scores)
