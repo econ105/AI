@@ -7,7 +7,7 @@ library(syuzhet)
 
 # Define UI for the application
 ui <- fluidPage(
-  titlePanel("Emotion Analysis Tool"),
+  titlePanel("Prof Rita Li's Emotion Analysis Tool"),
   
   sidebarLayout(
     sidebarPanel(
