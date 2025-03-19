@@ -1,0 +1,55 @@
+install.packages(c("shiny", "tidytext", "dplyr", "stringr", "syuzhet"))
+library(shiny)
+library(tidytext)
+library(dplyr)
+library(stringr)
+library(syuzhet)
+
+# Define UI for the application
+ui <- fluidPage(
+  titlePanel("Emotion Analysis Tool"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      fileInput("files", "Choose Text Files",
+                multiple = TRUE,
+                accept = c("text/plain", ".txt")),
+      actionButton("analyze", "Analyze Emotions")
+    ),
+    
+    mainPanel(
+      tableOutput("emotion_table"),
+      verbatimTextOutput("summary")
+    )
+  )
+)
+
+# Define server logic
+server <- function(input, output) {
+  observeEvent(input$analyze, {
+    req(input$files)
+    
+    # Read and combine text files
+    text_data <- lapply(input$files$datapath, readLines)
+    text_data <- unlist(text_data)
+    
+    # Analyze emotions
+    emotion_results <- get_nrc_sentiment(text_data)
+    
+    # Combine results
+    emotion_summary <- as.data.frame(colSums(emotion_results, na.rm = TRUE))
+    emotion_summary <- tibble::rownames_to_column(emotion_summary, "emotion")
+    
+    # Output results
+    output$emotion_table <- renderTable({
+      emotion_summary
+    })
+    
+    output$summary <- renderPrint({
+      summary(emotion_summary)
+    })
+  })
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
