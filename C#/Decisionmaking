@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    // Sample movie data
+    public class Movie
+    {
+        public string Title { get; set; }
+        public string Genre { get; set; }
+        public int Rating { get; set; }
+    }
+
+    static void Main()
+    {
+        // User preferences
+        string userGenre = "Action";   // User's preferred genre
+        int userRating = 7;            // User's minimum rating
+
+        // Sample movie data
+        List<Movie> movies = new List<Movie>
+        {
+            new Movie { Title = "Movie A", Genre = "Action", Rating = 8 },
+            new Movie { Title = "Movie B", Genre = "Drama", Rating = 6 },
+            new Movie { Title = "Movie C", Genre = "Action", Rating = 7 },
+            new Movie { Title = "Movie D", Genre = "Comedy", Rating = 5 }
+        };
+
+        // Function to recommend a movie
+        List<string> RecommendMovie(string genre, int minRating)
+        {
+            var recommended = movies.Where(m => m.Genre == genre && m.Rating >= minRating).Select(m => m.Title).ToList();
+
+            if (recommended.Count > 0)
+            {
+                return recommended;
+            }
+            else
+            {
+                return new List<string> { "No recommendations available." };
+            }
+        }
+
+        // Get recommendation
+        List<string> recommendation = RecommendMovie(userGenre, userRating);
+        recommendation.ForEach(Console.WriteLine);
+    }
+}
