@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Repeat Sales Index Over Time</title>
+<style>
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 20px;
+  }
+  .chart-container {
+    max-width: 900px;
+    margin: auto;
+  }
+  svg {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    background: #fafafa;
+  }
+  .axis {
+    stroke: #333;
+    stroke-width: 1;
+  }
+  .grid {
+    stroke: #e0e0e0;
+    stroke-width: 1;
+  }
+  .line {
+    fill: none;
+    stroke: #2563eb;
+    stroke-width: 2;
+  }
+  .label {
+    font-size: 12px;
+    fill: #333;
+  }
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+    text-anchor: middle;
+  }
+</style>
+</head>
+<body>
+<div class="chart-container">
+  <svg id="chart" viewBox="0 0 900 500"></svg>
+</div>
+
+<script>
+const data = [
+  [593,100],[594,100],[595,100],[596,100],[597,100],[598,100],[599,100],
+  [600,91.2871],[601,91.2871],[602,91.2871],[603,91.2871],[604,91.2871],
+  [605,91.2871],[606,91.2871],[607,91.2871],[608,91.2871],[609,91.2871],
+  [610,91.2871],[611,91.2871],[612,91.2871],[613,91.2871],
+  [614,84.7319],[615,84.7319],[616,84.7319],[617,84.7319],[618,84.7319],
+  [619,84.7319],[620,84.7319],[621,84.7319],[622,84.7319],
+  [623,93.2050],
+  [624,102.1010],[625,102.1010],[626,102.1010],[627,102.1010],
+  [628,102.1010],[629,102.1010],[630,102.1010],[631,102.1010],
+  [632,102.1010],[633,102.1010],[634,102.1010],[635,102.1010],
+  [636,102.1010],[637,102.1010],[638,102.1010],[639,102.1010],
+  [640,102.1010],[641,102.1010],[642,102.1010],[643,102.1010],
+  [644,110.0]
+];
+
+const svg = document.getElementById("chart");
+const width = 900;
+const height = 500;
+const margin = { top: 50, right: 40, bottom: 50, left: 60 };
+
+const xValues = data.map(d => d[0]);
+const yValues = data.map(d => d[1]);
+
+const xMin = Math.min(...xValues);
+const xMax = Math.max(...xValues);
+const yMin = Math.floor(Math.min(...yValues) / 10) * 10;
+const yMax = Math.ceil(Math.max(...yValues) / 10) * 10;
+
+const xScale = x =>
+  margin.left +
+  (x - xMin) / (xMax - xMin) * (width - margin.left - margin.right);
+
+const yScale = y =>
+  height - margin.bottom -
+  (y - yMin) / (yMax - yMin) * (height - margin.top - margin.bottom);
+
+// Title
+const title = document.createElementNS("http://www.w3.org/2000/svg", "text");
+title.setAttribute("x", width / 2);
+title.setAttribute("y", 30);
+title.setAttribute("class", "title");
+title.textContent = "Repeat Sales Index Over Time";
+svg.appendChild(title);
+
+// Grid and Y-axis labels
+for (let y = yMin; y <= yMax; y += 10) {
+  const yPos = yScale(y);
+
+  const gridLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  gridLine.setAttribute("x1", margin.left);
+  gridLine.setAttribute("x2", width - margin.right);
+  gridLine.setAttribute("y1", yPos);
+  gridLine.setAttribute("y2", yPos);
+  gridLine.setAttribute("class", "grid");
+  svg.appendChild(gridLine);
+
+  const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  label.setAttribute("x", margin.left - 10);
+  label.setAttribute("y", yPos + 4);
+  label.setAttribute("text-anchor", "end");
+  label.setAttribute("class", "label");
+  label.textContent = y.toFixed(0);
+  svg.appendChild(label);
+}
+
+// Axes
+const xAxis = document.createElementNS("http://www.w3.org/2000/svg", "line");
+xAxis.setAttribute("x1", margin.left);
+xAxis.setAttribute("x2", width - margin.right);
+xAxis.setAttribute("y1", height - margin.bottom);
+xAxis.setAttribute("y2", height - margin.bottom);
+xAxis.setAttribute("class", "axis");
+svg.appendChild(xAxis);
+
+const yAxis = document.createElementNS("http://www.w3.org/2000/svg", "line");
+yAxis.setAttribute("x1", margin.left);
+yAxis.setAttribute("x2", margin.left);
+yAxis.setAttribute("y1", margin.top);
+yAxis.setAttribute("y2", height - margin.bottom);
+yAxis.setAttribute("class", "axis");
+svg.appendChild(yAxis);
+
+// Line path
+let pathData = "";
+data.forEach((d, i) => {
+  const x = xScale(d[0]);
+  const y = yScale(d[1]);
+  pathData += i === 0 ? `M ${x} ${y}` : ` L ${x} ${y}`;
+});
+
+const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+path.setAttribute("d", pathData);
+path.setAttribute("class", "line");
+svg.appendChild(path);
+
+// Axis labels
+const xLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+xLabel.setAttribute("x", width / 2);
+xLabel.setAttribute("y", height - 10);
+xLabel.setAttribute("text-anchor", "middle");
+xLabel.setAttribute("class", "label");
+xLabel.textContent = "Time Index";
+svg.appendChild(xLabel);
+
+const yLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+yLabel.setAttribute("transform", "rotate(-90)");
+yLabel.setAttribute("x", -height / 2);
+yLabel.setAttribute("y", 20);
+yLabel.setAttribute("text-anchor", "middle");
+yLabel.setAttribute("class", "label");
+yLabel.textContent = "Repeat Sales Index";
+svg.appendChild(yLabel);
+</script>
+</body>
+</html>
