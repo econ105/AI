@@ -1,0 +1,43 @@
+//pinescript for strategy of 20EMA envelope 0.37, upper line, lower line, mid line
+//@version=5
+strategy("20 EMA Envelope 0.37% Strategy", overlay=true, default_qty_type=strategy.percent_of_equity, default_qty_value=10)
+
+// Fixed 0.37% envelope settings
+percent = 0.37 / 100
+ema20 = ta.ema(close, 20)
+upperLine = ema20 * (1 + percent)
+lowerLine = ema20 * (1 - percent)
+midLine = ema20
+
+// Plot envelope lines
+plot(upperLine, "Upper 0.37%", color=color.green, linewidth=2)
+plot(lowerLine, "Lower 0.37%", color=color.red, linewidth=2)
+plot(midLine, "EMA 20", color=color.yellow, linewidth=2)
+
+// Envelope fill
+u = plot(upperLine, display=display.none)
+l = plot(lowerLine, display=display.none)
+fill(u, l, color=color.new(color.blue, 95))
+
+// Entry conditions
+longCondition = ta.crossover(close, upperLine)
+shortCondition = ta.crossunder(close, lowerLine)
+
+// Execute trades
+if longCondition
+    strategy.entry("Long", strategy.long)
+    
+if shortCondition
+    strategy.entry("Short", strategy.short)
+
+// Exit conditions (opposite envelope touch)
+if ta.crossunder(close, upperLine)
+    strategy.close("Long")
+    
+if ta.crossover(close, lowerLine)
+    strategy.close("Short")
+
+// Labels for current values
+if barstate.islast
+    label.new(bar_index, upperLine, "Upper: " + str.tostring(upperLine, format.mintick), style=label.style_label_left, color=color.green, textcolor=color.white, size=size.small)
+    label.new(bar_index, lowerLine, "Lower: " + str.tostring(lowerLine, format.mintick), style=label.style_label_left, color=color.red, textcolor=color.white, size=size.small)
