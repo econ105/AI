@@ -1,0 +1,35 @@
+//@version=6
+indicator("Price Difference from EMA", overlay=false)
+
+// User Inputs for EMA lengths
+emaLength1 = input(60, title="EMA Length")
+
+// Calculate EMAs
+ema1 = ta.ema(close, emaLength1)
+
+// Calculate price differences from EMAs
+difference1 = close - ema1
+
+// Combine differences into a single indicator value
+indicatorValue = difference1
+
+// Calculate max and min for dynamic horizontal lines
+maxValue = ta.highest(indicatorValue, 500)  // Adjust the period as needed
+minValue = ta.lowest(indicatorValue, 500)
+
+// Plotting the indicator value
+plot(indicatorValue, title="Price Difference", color=color.blue, linewidth=2)
+
+// Plot horizontal lines for max and min values
+hline(0, "Zero Line", color=color.gray)
+plot(maxValue, title="Max Value", color=color.red, linewidth=1)
+plot(minValue, title="Min Value", color=color.green, linewidth=1)
+
+// Add labels for max, min, and zero line
+if barstate.islast
+    label.new(bar_index, maxValue, str.tostring(maxValue + ema1, "#.##"),
+      style=label.style_label_left, color=color.red, textcolor=color.white)
+    label.new(bar_index, minValue, str.tostring(ema1 + minValue, "#.##"),
+      style=label.style_label_left, color=color.green, textcolor=color.white)
+    label.new(bar_index, 0, str.tostring(ema1, "#.##"),
+      style=label.style_label_left, color=color.gray, textcolor=color.white)
