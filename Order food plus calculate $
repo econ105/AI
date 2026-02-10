@@ -1,78 +1,133 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 class FoodOrderingSystem
 {
     static void Main(string[] args)
     {
-        // Define the menu with items and prices
-        Dictionary<string, double> menu = new Dictionary<string, double>
+        // Menu (using case-insensitive comparer)
+        var menu = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase)
         {
             { "Burger", 5.99 },
-            { "Pizza", 8.99 },
-            { "Pasta", 7.49 },
-            { "Salad", 4.99 },
-            { "Soda", 1.99 },
-            { "Fries", 2.49 }
+            { "Pizza",  8.99 },
+            { "Pasta",  7.49 },
+            { "Salad",  4.99 },
+            { "Soda",   1.99 },
+            { "Fries",  2.49 }
         };
 
-        // Initialize the order dictionary
-        Dictionary<string, int> order = new Dictionary<string, int>();
+        var order = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
-        Console.WriteLine("Welcome to the Food Ordering System!");
+        Console.WriteLine("=====================================");
+        Console.WriteLine("   Welcome to the Food Ordering System");
+        Console.WriteLine("=====================================\n");
+
         Console.WriteLine("Menu:");
-        foreach (var item in menu)
+        foreach (var item in menu.OrderBy(x => x.Key))
         {
-            Console.WriteLine($"{item.Key}: ${item.Value:F2}");
+            Console.WriteLine($"  {item.Key,-12} ${item.Value:F2}");
         }
 
         while (true)
         {
-            Console.Write("\nEnter the food item you'd like to order (or type 'done' to finish): ");
-            string foodItem = Console.ReadLine();
+            Console.Write("\nEnter food item (or 'done' to finish, 'remove' to cancel item): ");
+            string input = Console.ReadLine()?.Trim();
 
-            if (foodItem.ToLower() == "done")
-            {
+            if (string.IsNullOrWhiteSpace(input))
+                continue;
+
+            string choice = input.ToLower();
+
+            if (choice == "done")
                 break;
-            }
 
-            if (!menu.ContainsKey(foodItem))
+            if (choice == "remove")
             {
-                Console.WriteLine("Invalid item! Please choose from the menu.");
+                RemoveItemFromOrder(order, menu);
                 continue;
             }
 
-            Console.Write($"Enter the quantity for {foodItem}: ");
-            if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity <= 0)
+            if (!menu.ContainsKey(input))
             {
-                Console.WriteLine("Invalid quantity! Please enter a positive number.");
+                Console.WriteLine("Sorry, that item is not on the menu.");
                 continue;
             }
 
-            // Add the item to the order or update the quantity if it already exists
-            if (order.ContainsKey(foodItem))
+            Console.Write($"How many {input}? ");
+            if (!int.TryParse(Console.ReadLine(), out int qty) || qty <= 0)
             {
-                order[foodItem] += quantity;
+                Console.WriteLine("Please enter a valid positive number.");
+                continue;
             }
+
+            if (order.ContainsKey(input))
+                order[input] += qty;
             else
-            {
-                order[foodItem] = quantity;
-            }
+                order[input] = qty;
 
-            Console.WriteLine($"{quantity} x {foodItem} added to your order.");
+            Console.WriteLine($"→ Added {qty} × {input}");
+            ShowCurrentOrderSummary(order, menu);
         }
 
-        // Calculate the total cost
-        double totalCost = 0;
-        Console.WriteLine("\nYour Order:");
+        // Final order
+        if (order.Count == 0)
+        {
+            Console.WriteLine("\nNo items were ordered. Goodbye!");
+            return;
+        }
+
+        Console.WriteLine("\n=====================================");
+        Console.WriteLine("          Your Final Order");
+        Console.WriteLine("=====================================");
+        
+        double total = 0;
+        foreach (var item in order.OrderBy(x => x.Key))
+        {
+            double cost = menu[item.Key] * item.Value;
+            Console.WriteLine($"  {item.Key,-12} x {item.Value,2}   ${cost,7:F2}");
+            total += cost;
+        }
+
+        Console.WriteLine("-------------------------------------");
+        Console.WriteLine($"  TOTAL:                         ${total:F2}");
+        Console.WriteLine("=====================================");
+        Console.WriteLine("Thank you! Enjoy your meal! 🍔🍕🥗");
+    }
+
+    static void ShowCurrentOrderSummary(Dictionary<string, int> order, Dictionary<string, double> menu)
+    {
+        if (order.Count == 0) return;
+
+        Console.WriteLine("\nCurrent order:");
+        double runningTotal = 0;
         foreach (var item in order)
         {
-            double itemCost = menu[item.Key] * item.Value;
-            Console.WriteLine($"{item.Key} x {item.Value}: ${itemCost:F2}");
-            totalCost += itemCost;
+            double cost = menu[item.Key] * item.Value;
+            Console.WriteLine($"  {item.Key,-12} x {item.Value,2}   ${cost,7:F2}");
+            runningTotal += cost;
+        }
+        Console.WriteLine($"  Current total:                 ${runningTotal:F2}");
+    }
+
+    static void RemoveItemFromOrder(Dictionary<string, int> order, Dictionary<string, double> menu)
+    {
+        if (order.Count == 0)
+        {
+            Console.WriteLine("Your order is empty.");
+            return;
         }
 
-        Console.WriteLine($"\nTotal Cost: ${totalCost:F2}");
-        Console.WriteLine("Thank you for your order! Enjoy your meal!");
+        Console.Write("Which item would you like to remove? ");
+        string itemToRemove = Console.ReadLine()?.Trim();
+
+        if (string.IsNullOrWhiteSpace(itemToRemove) || !order.ContainsKey(itemToRemove))
+        {
+            Console.WriteLine("Item not found in your order.");
+            return;
+        }
+
+        order.Remove(itemToRemove);
+        Console.WriteLine($"→ Removed all {itemToRemove} from your order.");
     }
 }
