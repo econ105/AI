@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_1b712be4a1916bf1bdba73195778a705 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_1b712be4a1916bf1bdba73195778a705" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_1b712be4a1916bf1bdba73195778a705 = L.map(
+                "map_1b712be4a1916bf1bdba73195778a705",
+                {
+                    center: [40.71802763478261, -73.83398860434784],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_3e3b15ccfb71b0911685a8deec90c88e = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_3e3b15ccfb71b0911685a8deec90c88e.addTo(map_1b712be4a1916bf1bdba73195778a705);
+        
+    
+            var marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_0be690765e4acf4c4485e5cde342185d = L.marker(
+                [40.6204506, -73.9142931],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_4aa309e290503deea6269d78997a90f0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_18b6d33b671bc5193b812e14ac609634 = $(`<div id="html_18b6d33b671bc5193b812e14ac609634" style="width: 100.0%; height: 100.0%;">1408 E 66 St, Brooklyn, NY: $1680000.0</div>`)[0];
+                popup_4aa309e290503deea6269d78997a90f0.setContent(html_18b6d33b671bc5193b812e14ac609634);
+            
+        
+
+        marker_0be690765e4acf4c4485e5cde342185d.bindPopup(popup_4aa309e290503deea6269d78997a90f0)
+        ;
+
+        
+    
+    
+            var marker_ec48e655022d51255704ed01e1b23dd6 = L.marker(
+                [40.6542905, -73.8510851],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_ab422a50f95a2413d7b207d704b1547c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_31fe100b972efdf9f26f5c350765120b = $(`<div id="html_31fe100b972efdf9f26f5c350765120b" style="width: 100.0%; height: 100.0%;">160-51 80th St, Howard Beach, NY: $1499000.0</div>`)[0];
+                popup_ab422a50f95a2413d7b207d704b1547c.setContent(html_31fe100b972efdf9f26f5c350765120b);
+            
+        
+
+        marker_ec48e655022d51255704ed01e1b23dd6.bindPopup(popup_ab422a50f95a2413d7b207d704b1547c)
+        ;
+
+        
+    
+    
+            var marker_6f460f9efdfbd9a0476fa92dd27ec2b8 = L.marker(
+                [40.649078, -73.84537],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_d7b5b7f8cc97713d8ae837f48c9687d8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cc2739e29e690957d324f4d02f745f54 = $(`<div id="html_cc2739e29e690957d324f4d02f745f54" style="width: 100.0%; height: 100.0%;">164-14 85th St, Howard Beach, NY: $1649000.0</div>`)[0];
+                popup_d7b5b7f8cc97713d8ae837f48c9687d8.setContent(html_cc2739e29e690957d324f4d02f745f54);
+            
+        
+
+        marker_6f460f9efdfbd9a0476fa92dd27ec2b8.bindPopup(popup_d7b5b7f8cc97713d8ae837f48c9687d8)
+        ;
+
+        
+    
+    
+            var marker_1ee48a7ebbd96c38d7642123b85ffa10 = L.marker(
+                [40.6185507, -73.9001119],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_e18991ac3b5011fd72a5c59d94d50fe5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bd6136ffdeed5ad6ae1a1aa9d3aa921f = $(`<div id="html_bd6136ffdeed5ad6ae1a1aa9d3aa921f" style="width: 100.0%; height: 100.0%;">2310 Bergen Ave, Brooklyn, NY: $1350000.0</div>`)[0];
+                popup_e18991ac3b5011fd72a5c59d94d50fe5.setContent(html_bd6136ffdeed5ad6ae1a1aa9d3aa921f);
+            
+        
+
+        marker_1ee48a7ebbd96c38d7642123b85ffa10.bindPopup(popup_e18991ac3b5011fd72a5c59d94d50fe5)
+        ;
+
+        
+    
+    
+            var marker_a5755b6d7696d45e69e45eeae9643c34 = L.marker(
+                [40.7376655, -73.7141553],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_924e3c94c4fc13f8a00a365946924ec0 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_71434782a46e294594b3024ec2b839a3 = $(`<div id="html_71434782a46e294594b3024ec2b839a3" style="width: 100.0%; height: 100.0%;">8311 Little Neck Pkwy, Glen Oaks, NY: $999000.0</div>`)[0];
+                popup_924e3c94c4fc13f8a00a365946924ec0.setContent(html_71434782a46e294594b3024ec2b839a3);
+            
+        
+
+        marker_a5755b6d7696d45e69e45eeae9643c34.bindPopup(popup_924e3c94c4fc13f8a00a365946924ec0)
+        ;
+
+        
+    
+    
+            var marker_4e173d4b177cbdddff95f1605cb09c71 = L.marker(
+                [40.7088189, -73.7565356],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_5839538d9db264f7a98ae6634327d1c5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0ee4c275636b15229888f45276040d3e = $(`<div id="html_0ee4c275636b15229888f45276040d3e" style="width: 100.0%; height: 100.0%;">10415 202nd St, Saint Albans, NY: $979999.0</div>`)[0];
+                popup_5839538d9db264f7a98ae6634327d1c5.setContent(html_0ee4c275636b15229888f45276040d3e);
+            
+        
+
+        marker_4e173d4b177cbdddff95f1605cb09c71.bindPopup(popup_5839538d9db264f7a98ae6634327d1c5)
+        ;
+
+        
+    
+    
+            var marker_fa5aa3358c7f03a1db1674f8df605945 = L.marker(
+                [40.8527672, -73.8552878],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_bbfc9eca3892af5c2bb7ad4cab012c1b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_137b72babbb61244008b185141f0d459 = $(`<div id="html_137b72babbb61244008b185141f0d459" style="width: 100.0%; height: 100.0%;">1942 W Haight Ave, Bronx, NY: $888888.0</div>`)[0];
+                popup_bbfc9eca3892af5c2bb7ad4cab012c1b.setContent(html_137b72babbb61244008b185141f0d459);
+            
+        
+
+        marker_fa5aa3358c7f03a1db1674f8df605945.bindPopup(popup_bbfc9eca3892af5c2bb7ad4cab012c1b)
+        ;
+
+        
+    
+    
+            var marker_1ffc3c0c03afa1c38199ec50279cead2 = L.marker(
+                [40.722019, -73.875325],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_1dd7d70e15aab581be1cc42534e16ef6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f01fbfd74fc2a86080cf990a227b22e7 = $(`<div id="html_f01fbfd74fc2a86080cf990a227b22e7" style="width: 100.0%; height: 100.0%;">6271A 81st St, Middle Village, NY: $1428000.0</div>`)[0];
+                popup_1dd7d70e15aab581be1cc42534e16ef6.setContent(html_f01fbfd74fc2a86080cf990a227b22e7);
+            
+        
+
+        marker_1ffc3c0c03afa1c38199ec50279cead2.bindPopup(popup_1dd7d70e15aab581be1cc42534e16ef6)
+        ;
+
+        
+    
+    
+            var marker_0d39d3379151ef8a89657e5639b8b968 = L.marker(
+                [40.7031273, -73.7680796],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_bcb73539b4ffb9dac284a94bb3c7a8ef = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_68d89eb643b066199c4fe974cb79fbad = $(`<div id="html_68d89eb643b066199c4fe974cb79fbad" style="width: 100.0%; height: 100.0%;">18806 Brinkerhoff Ave, Saint Albans, NY: $999000.0</div>`)[0];
+                popup_bcb73539b4ffb9dac284a94bb3c7a8ef.setContent(html_68d89eb643b066199c4fe974cb79fbad);
+            
+        
+
+        marker_0d39d3379151ef8a89657e5639b8b968.bindPopup(popup_bcb73539b4ffb9dac284a94bb3c7a8ef)
+        ;
+
+        
+    
+    
+            var marker_4730b57e1e184dd245a67ca3f687aba7 = L.marker(
+                [40.6856772, -73.7520922],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_9f81051dfcab7b004a816aea80a5f7b8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e5a03c1c3fa7f3b4b2497948cef3392f = $(`<div id="html_e5a03c1c3fa7f3b4b2497948cef3392f" style="width: 100.0%; height: 100.0%;">19410 Nashville Blvd, Springfield Gardens, NY: $999000.0</div>`)[0];
+                popup_9f81051dfcab7b004a816aea80a5f7b8.setContent(html_e5a03c1c3fa7f3b4b2497948cef3392f);
+            
+        
+
+        marker_4730b57e1e184dd245a67ca3f687aba7.bindPopup(popup_9f81051dfcab7b004a816aea80a5f7b8)
+        ;
+
+        
+    
+    
+            var marker_82bacc3bac51798ee55aae69bdc387b1 = L.marker(
+                [40.7135905, -73.8786126],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_edd808fb2663524f9889626ea6964d21 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e21f77e9d09a0ea7b2fffc8b553e1be4 = $(`<div id="html_e21f77e9d09a0ea7b2fffc8b553e1be4" style="width: 100.0%; height: 100.0%;">66-71 74th St, Middle Village, NY: $1349000.0</div>`)[0];
+                popup_edd808fb2663524f9889626ea6964d21.setContent(html_e21f77e9d09a0ea7b2fffc8b553e1be4);
+            
+        
+
+        marker_82bacc3bac51798ee55aae69bdc387b1.bindPopup(popup_edd808fb2663524f9889626ea6964d21)
+        ;
+
+        
+    
+    
+            var marker_74c9fa827ba7067ebcf55ea66849a2c2 = L.marker(
+                [40.7177547, -73.7938051],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_1e970ea87155c0bd118f9e941b249464 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4eddbce97180f12de7776ba50b5155b3 = $(`<div id="html_4eddbce97180f12de7776ba50b5155b3" style="width: 100.0%; height: 100.0%;">17045 83rd Ave, Jamaica, NY: $1315000.0</div>`)[0];
+                popup_1e970ea87155c0bd118f9e941b249464.setContent(html_4eddbce97180f12de7776ba50b5155b3);
+            
+        
+
+        marker_74c9fa827ba7067ebcf55ea66849a2c2.bindPopup(popup_1e970ea87155c0bd118f9e941b249464)
+        ;
+
+        
+    
+    
+            var marker_1c7d9c29187ec5ac7b0ca55be68d3b34 = L.marker(
+                [40.8720278, -73.8524508],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_8a9c6132f22766b6cca0b72bfba81a37 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_250bbb56b24d54b6125a5baef0b34127 = $(`<div id="html_250bbb56b24d54b6125a5baef0b34127" style="width: 100.0%; height: 100.0%;">3228 Tenbroeck Ave, Bronx, NY: $725000.0</div>`)[0];
+                popup_8a9c6132f22766b6cca0b72bfba81a37.setContent(html_250bbb56b24d54b6125a5baef0b34127);
+            
+        
+
+        marker_1c7d9c29187ec5ac7b0ca55be68d3b34.bindPopup(popup_8a9c6132f22766b6cca0b72bfba81a37)
+        ;
+
+        
+    
+    
+            var marker_49fb99a9300b0a81f2c74526180d079d = L.marker(
+                [40.6462003, -73.9208496],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_cba435ce3b82f22b3030e10d6e07cdb9 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e6cc1db0e604b81e0b5b86d44786539e = $(`<div id="html_e6cc1db0e604b81e0b5b86d44786539e" style="width: 100.0%; height: 100.0%;">319 E 59th St, Brooklyn, NY: $655000.0</div>`)[0];
+                popup_cba435ce3b82f22b3030e10d6e07cdb9.setContent(html_e6cc1db0e604b81e0b5b86d44786539e);
+            
+        
+
+        marker_49fb99a9300b0a81f2c74526180d079d.bindPopup(popup_cba435ce3b82f22b3030e10d6e07cdb9)
+        ;
+
+        
+    
+    
+            var marker_94e2e550affa12a049310d9b40dc0160 = L.marker(
+                [40.6799996, -73.7344972],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_ede631a9ec2187b5be5b6d8ebf77cd4f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c638775acc6bd88defe7962b87d94e26 = $(`<div id="html_c638775acc6bd88defe7962b87d94e26" style="width: 100.0%; height: 100.0%;">130-16 233rd, Rosedale, NY: $1099000.0</div>`)[0];
+                popup_ede631a9ec2187b5be5b6d8ebf77cd4f.setContent(html_c638775acc6bd88defe7962b87d94e26);
+            
+        
+
+        marker_94e2e550affa12a049310d9b40dc0160.bindPopup(popup_ede631a9ec2187b5be5b6d8ebf77cd4f)
+        ;
+
+        
+    
+    
+            var marker_2ba407035eeb48ab91e1ca8a403e88f7 = L.marker(
+                [40.7523662, -73.8320597],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_d5ea59732f25d445ea5fc1388fb7a4fa = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9a9f1dff7120b707780101197a256a52 = $(`<div id="html_9a9f1dff7120b707780101197a256a52" style="width: 100.0%; height: 100.0%;">13218 Avery Ave Unit 4A, Flushing, NY: $868000.0</div>`)[0];
+                popup_d5ea59732f25d445ea5fc1388fb7a4fa.setContent(html_9a9f1dff7120b707780101197a256a52);
+            
+        
+
+        marker_2ba407035eeb48ab91e1ca8a403e88f7.bindPopup(popup_d5ea59732f25d445ea5fc1388fb7a4fa)
+        ;
+
+        
+    
+    
+            var marker_b7c6a96c7abb64e6545169a458747b39 = L.marker(
+                [40.6601795, -73.8374917],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_634107188b7f7803b15bec70321eb4a3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d1b50b611da8fe04cd9798adfff8d48a = $(`<div id="html_d1b50b611da8fe04cd9798adfff8d48a" style="width: 100.0%; height: 100.0%;">15836 96th St, Howard Beach, NY: $929000.0</div>`)[0];
+                popup_634107188b7f7803b15bec70321eb4a3.setContent(html_d1b50b611da8fe04cd9798adfff8d48a);
+            
+        
+
+        marker_b7c6a96c7abb64e6545169a458747b39.bindPopup(popup_634107188b7f7803b15bec70321eb4a3)
+        ;
+
+        
+    
+    
+            var marker_0784f7dfd2e9da10d68756ea4205d78e = L.marker(
+                [40.8504962, -73.7849653],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_a26ac57a0e18b30cb42c90a8f0c2eae2 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2dd69ad1fe3e37283e4f3f73fb84cf80 = $(`<div id="html_2dd69ad1fe3e37283e4f3f73fb84cf80" style="width: 100.0%; height: 100.0%;">223 Ditmars St, Bronx, NY: $749000.0</div>`)[0];
+                popup_a26ac57a0e18b30cb42c90a8f0c2eae2.setContent(html_2dd69ad1fe3e37283e4f3f73fb84cf80);
+            
+        
+
+        marker_0784f7dfd2e9da10d68756ea4205d78e.bindPopup(popup_a26ac57a0e18b30cb42c90a8f0c2eae2)
+        ;
+
+        
+    
+    
+            var marker_977225282b6ccc5304bc529e8edd9af8 = L.marker(
+                [40.6877532, -73.8275738],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_f86cdae1f9ce48457dfb25f6ae8112d4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_33c105528db2a48acf4b245f92e526b0 = $(`<div id="html_33c105528db2a48acf4b245f92e526b0" style="width: 100.0%; height: 100.0%;">10155 116th St, South Richmond Hill, NY: $825000.0</div>`)[0];
+                popup_f86cdae1f9ce48457dfb25f6ae8112d4.setContent(html_33c105528db2a48acf4b245f92e526b0);
+            
+        
+
+        marker_977225282b6ccc5304bc529e8edd9af8.bindPopup(popup_f86cdae1f9ce48457dfb25f6ae8112d4)
+        ;
+
+        
+    
+    
+            var marker_2f010a0af7ddc092d78ead4d60c1621f = L.marker(
+                [40.8207175, -73.8200921],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_ec31fd7b1a5b95f1f074b0e5f4af90ed = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6e5b3ec122c64e1827b155664fd5e785 = $(`<div id="html_6e5b3ec122c64e1827b155664fd5e785" style="width: 100.0%; height: 100.0%;">426 Calhoun Ave, Bronx, NY: $740000.0</div>`)[0];
+                popup_ec31fd7b1a5b95f1f074b0e5f4af90ed.setContent(html_6e5b3ec122c64e1827b155664fd5e785);
+            
+        
+
+        marker_2f010a0af7ddc092d78ead4d60c1621f.bindPopup(popup_ec31fd7b1a5b95f1f074b0e5f4af90ed)
+        ;
+
+        
+    
+    
+            var marker_e2fe45e19d0db065a29667f23f21f8b8 = L.marker(
+                [40.6637067, -73.8659464],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_ca56d471dbc57e791717ce75131c7e3a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4bd8cdcada76fba5a95ef30f06c985d6 = $(`<div id="html_4bd8cdcada76fba5a95ef30f06c985d6" style="width: 100.0%; height: 100.0%;">1011 Hemlock St, Brooklyn, NY: $809000.0</div>`)[0];
+                popup_ca56d471dbc57e791717ce75131c7e3a.setContent(html_4bd8cdcada76fba5a95ef30f06c985d6);
+            
+        
+
+        marker_e2fe45e19d0db065a29667f23f21f8b8.bindPopup(popup_ca56d471dbc57e791717ce75131c7e3a)
+        ;
+
+        
+    
+    
+            var marker_fec020065b86e43b2f1dc50f93af6fae = L.marker(
+                [40.6458303, -73.9114175],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_bc772404a73f70666d0cda2d528e4cd7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6c65421b8afaff5330b0df462bd654ce = $(`<div id="html_6c65421b8afaff5330b0df462bd654ce" style="width: 100.0%; height: 100.0%;">9015 Krier Pl, Brooklyn, NY: $829000.0</div>`)[0];
+                popup_bc772404a73f70666d0cda2d528e4cd7.setContent(html_6c65421b8afaff5330b0df462bd654ce);
+            
+        
+
+        marker_fec020065b86e43b2f1dc50f93af6fae.bindPopup(popup_bc772404a73f70666d0cda2d528e4cd7)
+        ;
+
+        
+    
+    
+            var marker_0bbcdedcf8a912de5f9e462a071ca9de = L.marker(
+                [40.8515682, -73.8896405],
+                {
+}
+            ).addTo(marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d);
+        
+    
+        var popup_cafc6e2ab1cbc01f15823cd71250433e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_80f4ceb9036bf9b55147a777b2999d2c = $(`<div id="html_80f4ceb9036bf9b55147a777b2999d2c" style="width: 100.0%; height: 100.0%;">620 E 182nd St, Bronx, NY: $699000.0</div>`)[0];
+                popup_cafc6e2ab1cbc01f15823cd71250433e.setContent(html_80f4ceb9036bf9b55147a777b2999d2c);
+            
+        
+
+        marker_0bbcdedcf8a912de5f9e462a071ca9de.bindPopup(popup_cafc6e2ab1cbc01f15823cd71250433e)
+        ;
+
+        
+    
+    
+            marker_cluster_fb18b9cc6993498e7e29bc944f6f8f4d.addTo(map_1b712be4a1916bf1bdba73195778a705);
+        
+</script>
+</html>
