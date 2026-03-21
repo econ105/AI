@@ -1,0 +1,72 @@
+############################################################
+# Naive Bayes news classification in R (toy example)
+############################################################
+
+# 1. Packages ------------------------------------------------
+install.packages(c("tm", "e1071"))   # run once
+library(tm)
+library(e1071)
+
+# 2. Tiny labeled news corpus --------------------------------
+news_text <- c(
+  "team wins the football match",           # sports
+  "star striker scores three goals",        # sports
+  "central bank raises interest rates",     # business
+  "stock market falls after announcement",  # business
+  "government passes new education bill",   # politics
+  "election debate focuses on taxes",       # politics
+  "new smartphone model released",          # tech
+  "software update fixes security bugs"     # tech
+)
+
+news_topic <- factor(c(
+  "sports","sports","business","business",
+  "politics","politics","tech","tech"
+))
+
+news_df <- data.frame(text = news_text,
+                      topic = news_topic,
+                      stringsAsFactors = FALSE)
+
+# 3. Build and clean corpus ----------------------------------
+corp <- VCorpus(VectorSource(news_df$text))
+corp <- tm_map(corp, content_transformer(tolower))
+corp <- tm_map(corp, removePunctuation)
+corp <- tm_map(corp, removeNumbers)
+corp <- tm_map(corp, removeWords, stopwords("en"))
+
+# 4. Document–term matrix (bag of words) ---------------------
+dtm <- DocumentTermMatrix(corp)
+X   <- as.data.frame(as.matrix(dtm))
+X$topic <- news_df$topic
+
+# 5. Train naive Bayes classifier -----------------------------
+set.seed(123)
+model_nb <- naiveBayes(topic ~ ., data = X)
+
+# 6. Predict on training data just to see performance --------
+pred_train <- predict(model_nb, newdata = X)
+table(Predicted = pred_train, Actual = X$topic)
+mean(pred_train == X$topic)
+
+# 7. Classify new, unseen news headlines ----------------------
+new_news <- c(
+  "team loses important match",
+  "parliament votes on new tax law",
+  "company announces new laptop"
+)
+
+new_corp <- VCorpus(VectorSource(new_news))
+new_corp <- tm_map(new_corp, content_transformer(tolower))
+new_corp <- tm_map(new_corp, removePunctuation)
+new_corp <- tm_map(new_corp, removeNumbers)
+new_corp <- tm_map(new_corp, removeWords, stopwords("en"))
+
+# Use same dictionary as training data
+new_dtm <- DocumentTermMatrix(new_corp, control = list(dictionary = Terms(dtm)))
+new_X   <- as.data.frame(as.matrix(new_dtm))
+
+pred_new <- predict(model_nb, newdata = new_X)
+data.frame(headline = new_news, predicted_topic = pred_new)
+############################################################
+
