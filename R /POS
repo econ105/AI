@@ -1,0 +1,38 @@
+############################################################
+# Part-of-Speech (POS) tagging in R with udpipe: one-page demo
+############################################################
+
+# 1. Install & load package (install only once)
+install.packages("udpipe")              # comment out after first run
+library(udpipe)
+
+# 2. Download an English model (Universal Dependencies, english-ewt)
+#    This returns a list; $file_model contains the path to the udpipe model
+m_eng   <- udpipe_download_model(language = "english-ewt")
+model_path <- m_eng$file_model
+# You can check other available languages with ?udpipe_download_model
+# (65+ languages, 100+ treebanks). [web:26]
+
+# 3. Load the model
+ud_model <- udpipe_load_model(file = model_path)
+
+# 4. Some example sentences
+text <- c(
+  "FINT400 a simple course.",
+  "Rita is teaching POS tagging in R.",
+  "Students like interesting examples but many are boring in all courses."
+)
+
+# 5. Annotate: tokenization + POS tagging (+ lemma, dependencies)
+anno <- udpipe_annotate(ud_model, x = text)
+pos_df <- as.data.frame(anno)
+
+# Inspect main POS fields
+head(pos_df[, c("doc_id", "sentence_id", "token", "lemma", "upos", "xpos")], 15)
+
+# Columns:
+#   token  = word as it appears in text
+#   lemma  = dictionary / root form
+#   upos   = Universal POS tag (NOUN, VERB, ADJ, ADV, etc.) [web:21][web:25]
+#   xpos   = language-specific POS tag (e.g. Penn Treebank for English) [web:11][web:21]
+############################################################
